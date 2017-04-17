@@ -1,0 +1,12 @@
+.color-broad{
+
+}
+.color-broad .color{
+    display: inline-block;
+    margin: 5px 0;
+    width: 100%;
+    height: 25px;
+    color: #fff;
+    line-height: 25px;
+    text-align: center;
+}

@@ -14,9 +14,11 @@ class CustomForm extends Component {
     constructor(props){
         super(props);
     }
+
     render () {
         const { data, onChange } = this.props;
-        const self = this;
+
+
         return (
             <Form>
                 {
@@ -25,7 +27,7 @@ class CustomForm extends Component {
                             <Col md={4} key={index}>
                                 <FormGroup>
                                     <Label>{item.name}</Label>
-                                    <FormControl value={item.value} onChange={onChange(item.key, index)} />
+                                    <FormControl value={item.value} onChange={onChange(item.name, index)} />
                                 </FormGroup>
                             </Col>
                         )

@@ -1,33 +1,35 @@
-import React,{Component} from 'react'
-import {Navbar,FormControl,Badge,Con,Col,Tile,Icon,Row}  from 'tinper-bee';
-import NavLink from '../components/NavLink';
-
+import React, {Component} from 'react'
+import {Navbar, FormControl, Badge, Con, Col, Tile, Icon, Row}  from 'tinper-bee';
+import ColorChange from '../components/ColorChange';
+import { Link } from 'react-router';
+import menuData from '../config/menu';
 const Menu = Navbar.Menu;
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.MenuItemGroup;
-const NavItem = Navbar.NavItem;
-const Header = Navbar.Header;
-const Brand = Navbar.Brand;
-const Collapse = Navbar.Collapse;
-const Toggle = Navbar.Toggle;
-const Nav = Navbar.Nav;
-const SideContainer = Navbar.SideContainer;
+const MenuItemGroup = Menu.ItemGroup;
 
+console.log(menuData);
 
+const colors = [
+    {
+        key: 'primary',
+        value: '#0084ff'
+    },
+    {
+        key: 'success',
+        value: 'rgb(76,175,80)'
+    }
+]
 
 class App extends Component {
 
     constructor(props, context) {
         super(props, context);
         this.state = {
-            expanded: false,
-            current: 1
+            current: 1,
+            colors: colors,
+            baseStyle: {}
         }
     }
 
-    onToggle(value) {
-        this.setState({expanded: value});
-    }
 
     handleClick(e) {
         console.log('click ', e);
@@ -38,43 +40,58 @@ class App extends Component {
 
     render() {
         return (
-            <div id="portal">
-                <Navbar fluid={true} className="portal-navbar" expanded={this.state.expanded} onToggle={this.onToggle.bind(this)}>
-                    <div className="toggle-wrap"><Toggle show/></div>
-                    <Header>
-                        <Brand>
-                            私人订制
-                        </Brand>
-                    </Header>
-                </Navbar>
-                <div>
-                    <SideContainer onToggle={this.onToggle.bind(this)} expanded={this.state.expanded}>
-                        <Menu onClick={this.handleClick.bind(this)}
-                              defaultOpenKeys={['demo3sub1']}
-                              selectedKeys={[this.state.current]}
-                              mode="inline"
-                              className="portal-menu" >
-                            <Menu.Item
-                                key="1">
-                                <NavLink to="/">首页</NavLink>
-                            </Menu.Item>
-                            <Menu.Item key="2"><NavLink to="/color">色彩设置</NavLink></Menu.Item>
-                            <Menu.Item key="3"><NavLink to="/zIndex">层级设置</NavLink></Menu.Item>
-                            <Menu.Item key="4"><NavLink to="/components/button">Button</NavLink></Menu.Item>
 
-                        </Menu>
-                    </SideContainer>
-                </div>
-                <div>
-                    <Con fluid>
-                        <Row>
-                            <Col md={9}>
-                                {this.props.children}
+                <Con>
+                    <div className="header">
+                        组件定制
+                    </div>
+                    <Row>
+                        <Col xs={2}>
+                            <Menu
+                                onClick={this.handleClick.bind(this)}
+                                className="menu"
+                                theme="dark"
+                                mode="inline">
+
+                                <MenuItemGroup title="全局样式">
+                                    <Menu.Item key="color">颜色</Menu.Item>
+                                    <Menu.Item key="base">基础样式</Menu.Item>
+                                </MenuItemGroup>
+                                <MenuItemGroup title="组件">
+                                    {
+                                        menuData.map((item, index) => {
+                                            return (
+                                                <Menu.Item key={index} >
+                                                    <Link to={ item.url }>{ item.name }</Link>
+                                                </Menu.Item>
+                                            )
+                                        })
+                                    }
+
+                                </MenuItemGroup>
+                            </Menu>
+                        </Col>
+                        <Col xs={10}>
+                            <Col sm={10} style={{ paddingTop: 40 }}>
+                                { React.cloneElement(this.props.children, { colors: this.state.colors, baseStyle: this.state.baseStyle }) }
                             </Col>
-                        </Row>
-                    </Con>
-                </div>
-            </div>
+                            <Col sm={2}>
+                                {
+                                    this.state.colors.map(function (item, index) {
+                                        return (
+                                            <ColorChange
+                                                key={index}
+                                                data={item}
+                                            />
+                                        )
+                                    })
+                                }
+                            </Col>
+                        </Col>
+                    </Row>
+                </Con>
+
+
         )
     }
 }

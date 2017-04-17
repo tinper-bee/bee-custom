@@ -1,7 +1,31 @@
-.con{
-    margin-left: 200px;
+.header{
+    height: 50px;
+    width: 100%;
+    background-color: #404040;
+    text-align: center;
+    font-size: 20px;
+    line-height: 50px;
+    color: #fff;
 }
 .menu{
-    position: absolute;
-    width: 200px;
+    margin-top: 0;
+    border-color: #404040;
+    box-shadow: none;
+    border-radius: 0;
+}
+.menu .u-menu-item{
+    cursor: pointer;
+}
+.u-menu-dark.u-menu-inline .u-menu-item-selected a, .u-menu-dark.u-menu-inline .u-menu-item:hover a{
+    color: #fff;
+}
+.button-broad .u-button{
+    margin: 5px 10px;
+}
+
+.btn-save{
+    margin: 40px 15px;
+}
+.btn-back{
+    margin: 40px 50px;
 }

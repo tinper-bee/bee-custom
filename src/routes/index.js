@@ -1,4 +1,4 @@
-import React from 'react';
+ import React from 'react';
 import { render } from 'react-dom';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import Main from '../containers/Main';
@@ -11,11 +11,8 @@ import ZIndex from '../components/ZIndex';
 export default (
   <Router history={hashHistory}>
     <Route path="/" component={Main}>
-      <IndexRoute component={Home}/>
-      <Route path="/color" component={Color} />
-      <Route path="/time" component={Color} />
-       <Route path="/zIndex" component={ZIndex} />
-      <Route path="/components/button" component={CustomButton} />
+      <Route path="/components/Button" component={CustomButton} />
+        <Route path="/base/Color" component={Color} />
     </Route>
   </Router>
 )
