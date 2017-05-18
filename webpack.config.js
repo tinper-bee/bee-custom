@@ -9,6 +9,7 @@ module.exports = {
 
   output: {
     path: path.join(__dirname, "./dist"),
+      libraryTarget: 'umd',
     filename: 'bundle.js'
   },
 
@@ -28,12 +29,22 @@ module.exports = {
         loader: 'url?limit=10240'
       },
       {
-        test: /\.(png|jpeg)$/,
+        test: /\.(png|jpeg|jpg)$/,
         loader: 'url?limit=10240'
       }
     ]
   },
-
+    externals: {
+        'react': 'React',
+        'react-dom': 'ReactDOM',
+        'tinper-bee': 'tinper-bee',
+        'react-router': 'ReactRouter',
+        'redux': 'Redux',
+        'react-redux': 'ReactRedux'
+    },
+    resolve: {
+        extensions: ['', '.js', '.jsx', '.css']
+    },
   plugins: [
     new htmlWebpackPlugin({
       template: path.join(__dirname, "./src/index.html")

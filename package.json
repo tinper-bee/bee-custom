@@ -10,11 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "html-webpack-plugin": "^2.24.1",
-    "react": "^0.14.7",
-    "react-dom": "^0.14.7",
-    "react-router": "^2.8.1",
-    "tinper-bee": "latest"
+    "babel-polyfill": "^6.23.0",
+    "es6-promise": "^4.1.0"
   },
   "devDependencies": {
     "babel-core": "^6.5.1",

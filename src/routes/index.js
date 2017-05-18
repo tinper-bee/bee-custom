@@ -1,6 +1,8 @@
- import React from 'react';
-import { render } from 'react-dom';
+import React from 'react';
+import { Provider } from 'react-redux';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
+
+import store from '../store/index';
 import Main from '../containers/Main';
 import Home from '../components/Home';
 import Color from '../components/Color';
@@ -9,10 +11,13 @@ import CustomButton from '../components/Button';
 import ZIndex from '../components/ZIndex';
 
 export default (
-  <Router history={hashHistory}>
-    <Route path="/" component={Main}>
-      <Route path="/components/Button" component={CustomButton} />
-        <Route path="/base/Color" component={Color} />
-    </Route>
-  </Router>
+<Provider store={store}>
+    <Router history={hashHistory}>
+        <Route path="/" component={Main}>
+            <Route path="/components/Button" component={CustomButton} />
+            <Route path="/base/Color" component={Color} />
+        </Route>
+    </Router>
+</Provider>
+
 )

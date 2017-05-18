@@ -1,12 +1,13 @@
-import React, {Component} from 'react'
-import {Navbar, FormControl, Badge, Con, Col, Tile, Icon, Row}  from 'tinper-bee';
-import ColorChange from '../components/ColorChange';
-import { Link } from 'react-router';
-import menuData from '../config/menu';
-const Menu = Navbar.Menu;
-const MenuItemGroup = Menu.ItemGroup;
+import React, {Component, cloneElement} from 'react'
+import { connect } from 'react-redux'
+import {Navbar, FormControl, Badge, Con, Col, Tile, Icon, Row}  from 'tinper-bee'
+import ColorChange from '../components/ColorChange'
+import { Link } from 'react-router'
+import menuData from '../config/menu'
+const Menu = Navbar.Menu
+const MenuItemGroup = Menu.ItemGroup
 
-console.log(menuData);
+
 
 const colors = [
     {
@@ -24,18 +25,20 @@ class App extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
-            current: 1,
             colors: colors,
             baseStyle: {}
         }
     }
 
 
-    handleClick(e) {
-        console.log('click ', e);
-        this.setState({
-            current: e.key
-        });
+
+    renderItem = () => {
+        console.log(this);
+        if(this.props.children){
+            return cloneElement(this.props.children, { colors: this.state.colors, baseStyle: this.state.baseStyle });
+        }
+        return ''
+
     }
 
     render() {
@@ -48,7 +51,6 @@ class App extends Component {
                     <Row>
                         <Col xs={2}>
                             <Menu
-                                onClick={this.handleClick.bind(this)}
                                 className="menu"
                                 theme="dark"
                                 mode="inline">
@@ -73,7 +75,7 @@ class App extends Component {
                         </Col>
                         <Col xs={10}>
                             <Col sm={10} style={{ paddingTop: 40 }}>
-                                { React.cloneElement(this.props.children, { colors: this.state.colors, baseStyle: this.state.baseStyle }) }
+                                { this.renderItem() }
                             </Col>
                             <Col sm={2}>
                                 {
@@ -95,5 +97,7 @@ class App extends Component {
         )
     }
 }
+
+App = connect()(App);
 
 export default App;
